@@ -1,0 +1,44 @@
+// -*- css -*-
+
+body {
+    font-size: 100%;
+}
+
+.records {
+    columns: 2;
+    list-style-position: inside;
+    
+    
+    .record {
+        margin: 1em 0;
+        
+        &:nth-child(even) {
+            border: dotted 1px #f0f;
+            background: #fff8ff;
+        }
+    }
+    
+}
+
+.question {
+    color: #d3c;
+}
+
+.answers {
+    li {
+        color: #888;
+        margin: .2em 0;
+        font-size: 90%;
+        list-style: upper-alpha;
+        
+    }
+    
+    .i-0 {
+        color: #07d;
+        font-weight: 400;
+        font-size: 100%;
+        span {
+            border-bottom: dashed 1px #07d;
+        }
+    }
+}

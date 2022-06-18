@@ -1,0 +1,30 @@
+
+TES    
+    TLF 1           500k km
+    ELF 10          50k km
+    SLF 100         5k km
+    
+UVL
+    ULF 1k          500km
+    VLF 10k         50km
+    LF  100k        5km
+
+MHV
+    MF  1M          500m    100m ~ 1000m
+    HF  10M         50m
+    VHF 100M        5m
+
+USE
+    UHF 1G          0.5 m   0.1m ~ 1m
+    SHF 10G         50 mm
+    EHF 100G        5 mm
+    
+    THF 1T          0.5 mm
+    
+    k:      UVL
+    
+    M:      MHV
+    
+    G:      USE
+    
+    T:      T

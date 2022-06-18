@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>ProjectTitle</title>
+
+        <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" type="text/css" href="../.skel/skel.css">
+        <link rel="stylesheet" type="text/css" href="../site.css">
+        <link rel="stylesheet" type="text/css" href="index.css">
+
+        <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
+
+        <script type="text/javascript" src="../libjs/lenik/dev-local.js"></script>
+        <script type="text/javascript" src="../libjs/lenik/http-request.js"></script>
+        <script type="text/javascript" src="../libjs/lenik/dom-util.js"></script>
+        <script type="text/javascript" src="../libjs/lenik/ajax-form.js"></script>
+        <script type="text/javascript" src="../libjs/lenik/inlineEdit.js"></script>
+
+        <script type="text/javascript" src="../.skel/async.js"></script>
+        <script type="text/javascript" src="../site-model.js"></script>
+        <script type="text/javascript" src="index-model.js"></script>
+        <script type="text/javascript" src="../.skel/skel.js"></script>
+        <script type="text/javascript" src="../.skel/site-supp.js"></script>
+        <script type="text/javascript" src="../site.js"></script>
+    </head>
+<body class="full-size">
+<div id="body" class="flex-column full-size">
+    
+    <div id="editor" class="fill" contenteditable="true">
+        <span id="content"></span>
+        <span class="ws"></span>
+    </div>
+    
+    <div id="inputbar" class="flex-row">
+        <div id="event" class="flex-row">
+            <div class="group">
+                <div id="code">{{ lastEvent.code }}</div>
+                <div id="duration"> {{ holdDuration == null ? "-" : holdDuration }}</div>
+            </div>
+            <div class="group">
+                <div id="key">{{ lastEvent.key }}</div>
+                <div id="keyCode">{{ lastEvent.keyCode }}</div>
+                <div class="head">key</div>
+            </div>
+            <div class="group">
+                <div id="char">'{{ lastEvent.char }}'</div>
+                <div id="charCode">{{ lastEvent.charCode }}</div>
+                <div class="head">char</div>
+            </div>
+            <ul class="group inline-block">
+                <li id="shift" class="shift" :class='sayOn(lastEvent.shiftKey)'>{{ say(lastEvent.shiftKey, "shift") }}</li>
+                <li id="ctrl" class="ctrl" :class='sayOn(lastEvent.ctrlKey)'>{{ say(lastEvent.ctrlKey, "ctrl") }}</li>
+                <li id="alt" class="alt" :class='sayOn(lastEvent.altKey)'>{{ say(lastEvent.altKey, "alt") }}</li>
+                <li id="meta" class="meta" :class='sayOn(lastEvent.metaKay)'>{{ say(lastEvent.metaKey, "meta") }}</li>
+            </ul>
+        </div>
+        <ul id="keys" class="flex-row fill inline-block">
+            <li v-for="k in keys" :class="keyName(k)">
+                <div class="key" :class="keyName(k)">
+                    <it class="fa" :class="keyGraph(k)"></it>
+                </div>
+                <div class="keyName">{{ keyName(k) }}</div>
+            </li>
+            <li class="hold" v-if="holdKey != null">
+                <div class="key">
+                    <it class="fa" :class="keyGraph(holdKey)"></it>
+                </div>
+                <div class="keyName">{{ holdDuration }}</div>
+            </li>
+            <li class="idle" v-if="idleDuration != null" :class="idleType">
+                <div class="key">
+                    <it class="fa fa-spin fa-circle-o-notch"></it>
+                </div>
+                <div class="keyName">{{ idleDuration }}</div>
+            </li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>

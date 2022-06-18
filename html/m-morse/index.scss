@@ -1,0 +1,128 @@
+// -*- css -*-
+
+#editor {
+    padding: 1em;
+    background: #fff0ff;
+    
+    &:after {
+        content: '\00a0';
+    }
+}
+
+.ws {
+    background: #fcfcfc;
+    border-bottom: dotted 1px gray;
+}
+
+#inputbar {
+    border-top: solid 2px #888;
+    background: #eef8ff;
+}
+
+#event {
+    border-right: solid 1px #888;
+    padding: .5em 1em;
+    min-width: 10em;
+    align-items: center;
+    
+    .group {
+        margin-left: 1em;
+        font-size: 75%;
+        >* {
+            min-height: 1em;
+        }
+    }
+    
+    #code {
+        border: solid 4px #ccc;
+        border-radius: 1em;
+        background: #ffffaa;
+        margin: auto;
+        padding: 0.2em 0.5em;
+        min-width: 4em;
+        text-align: center;
+        font-size: 120%;
+    }
+    
+    #duration {
+        text-align: center;
+    }
+    
+    #key, #char {
+        font-family: monospace;
+        font-weight: bold;
+    }
+    
+    ul.group {
+        max-width: 5em;
+        
+        .on {
+            border: solid 1px #ccc;
+            border-radius: .5em;
+            padding: 0.3em;
+            text-align: center;
+        }
+        .shift {
+            background: #eeffff;
+        }
+        .ctrl {
+            background: #ffddee;
+        }
+        .alt {
+            background: #ffeedd;
+        }
+        .meta {
+            background: #ffffaa;
+        }
+    }
+}
+
+#keys {
+    align-items: center;
+    
+    li {
+        margin-left: 1em;
+        background: #def;
+        padding: 0.2em 0.5em;
+        border: solid 2px #7bd;
+        border-radius: .5em;
+        color: #358;
+        text-align: center;
+        
+        .key {
+            width: 1.5em;
+            max-height: 1em;
+        }
+        .keyName {
+            font-size: 70%;
+            opacity: 0.7;
+        }
+    }
+    .dash {
+        font-style: italic;
+        background: #eff;
+    }
+    .hold {
+        border-style: dashed;
+        background: #eee;
+    }
+    .hold-1 {
+        background: #fdf;
+        border-color: #a8a;
+        color: #c4c;
+    }
+    .idle {
+        background: #eee;
+        border-style: dashed;
+        &.none {
+            opacity: 0.3;
+        }
+        &.letter {
+            background: #ffe;
+        }
+        &.word {
+            background: #efe;
+        }
+    }
+    
+}
