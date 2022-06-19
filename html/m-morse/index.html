@@ -11,29 +11,40 @@
         <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
 
-        <script type="text/javascript" src="../libjs/lenik/dev-local.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/http-request.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/dom-util.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/ajax-form.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/inlineEdit.js"></script>
+        <script type="text/javascript" src="../node_modules/vue-round-slider/dist/vue-roundslider.min.js"></script>
 
-        <script type="text/javascript" src="../.skel/async.js"></script>
+        <link rel="stylesheet" href="../node_modules/simplemde/dist/simplemde.min.css">
+        <script type="text/javascript" src="../node_modules/simplemde/dist/simplemde.min.js"></script>
+
         <script type="text/javascript" src="../site-model.js"></script>
         <script type="text/javascript" src="index-model.js"></script>
         <script type="text/javascript" src="../.skel/skel.js"></script>
-        <script type="text/javascript" src="../.skel/site-supp.js"></script>
         <script type="text/javascript" src="../site.js"></script>
+        <script type="text/javascript" src="index.js"></script>
     </head>
 <body class="full-size">
 <div id="body" class="flex-column full-size">
     
-    <div id="editor" class="fill" contenteditable="true">
-        <span id="content"></span>
-        <span class="ws"></span>
+    <div class="editor-container" class="fill" :class="editMode ? 'active' : '' ">
+        <textarea id="editor"></textarea>
     </div>
     
-    <div id="inputbar" class="flex-row">
-        <div id="event" class="flex-row">
+    <div id="helpdoc" class="flex-row" v-if="editMode">
+        <p class="header">编辑框支持 Markdown 哦！</p>
+        <p class="modeinfo">
+            莫斯电报码请敲击
+                <b class="kb">Esc</b>
+            键退出文字编辑模式，再按圆点键
+                <b class="kb">.</b>
+            键发送电报码。
+        </p>
+        <p class="cheatsheet">
+            ...
+        </p>
+    </div>
+    
+    <div id="inputbar" class="flex-row" v-if="!editMode">
+        <div id="event" class="flex-row" v-if="showKey">
             <div class="group">
                 <div id="code">{{ lastEvent.code }}</div>
                 <div id="duration"> {{ holdDuration == null ? "-" : holdDuration }}</div>
@@ -55,27 +66,90 @@
                 <li id="meta" class="meta" :class='sayOn(lastEvent.metaKay)'>{{ say(lastEvent.metaKey, "meta") }}</li>
             </ul>
         </div>
+        
+        <div id="config" class="flex-row" v-if="!showKey">
+            <div class="group">
+                <round-slider v-model="dashMin"
+                    slider-type="min-range"
+                    min="100" max="1000" step="10"
+                    radius="32" width="6"
+                    handle-size="0" handle-shape="square"
+                    circle-shape="full"
+                    start-angle="330" end-angle="+240"
+                    editable-tooltip="false"
+                    :tooltip-format="tailed('dash')"
+                 ></round-slider>
+            </div>
+            <div class="group">
+                <round-slider v-model="letterMin"
+                    slider-type="min-range"
+                    min="200" max="2000" step="10"
+                    radius="32" width="6"
+                    handle-size="0" handle-shape="square"
+                    circle-shape="full"
+                    start-angle="330" end-angle="+240"
+                    editable-tooltip="false"
+                    :tooltip-format="tailed('letter')"
+                 ></round-slider>
+            </div>
+            <div class="group">
+                <round-slider v-model="wordMin"
+                    slider-type="min-range"
+                    min="300" max="3000" step="10"
+                    radius="32" width="6"
+                    handle-size="0" handle-shape="square"
+                    circle-shape="full"
+                    start-angle="330" end-angle="+240"
+                    editable-tooltip="false"
+                    :tooltip-format="tailed('word')"
+                 ></round-slider>
+            </div>
+        </div>
+        
         <ul id="keys" class="flex-row fill inline-block">
             <li v-for="k in keys" :class="keyName(k)">
                 <div class="key" :class="keyName(k)">
-                    <it class="fa" :class="keyGraph(k)"></it>
+                    <i class="fa" :class="keyGraph(k)"></i>
                 </div>
                 <div class="keyName">{{ keyName(k) }}</div>
             </li>
             <li class="hold" v-if="holdKey != null">
                 <div class="key">
-                    <it class="fa" :class="keyGraph(holdKey)"></it>
+                    <i class="fa" :class="keyGraph(holdKey)"></i>
                 </div>
                 <div class="keyName">{{ holdDuration }}</div>
             </li>
             <li class="idle" v-if="idleDuration != null" :class="idleType">
                 <div class="key">
-                    <it class="fa fa-spin fa-circle-o-notch"></it>
+                    <i class="fa fa-spin fa-circle-o-notch"></i>
                 </div>
                 <div class="keyName">{{ idleDuration }}</div>
             </li>
         </ul>
+        
     </div>
+    
+    <ul id="tools" class="inline-block">
+        <li>
+            <div class="btn" :class="showKey ? 'on' : 'off'" @click="showKey = !showKey">
+                <i class="fa fa-keyboard-o"></i>
+            </div>
+        </li>
+        <li>
+            <div class="btn" :class="showHelp ? 'on' : 'off'" @click="showHelp = !showHelp">
+                <i class="fa fa-question"></i>
+            </div>
+        </li>
+        <li>
+            <div class="btn large" :class="holdStart ? 'hold' : '' "
+                    onmousedown="tapDown()"
+                    onmouseup="tapUp()"
+                    >
+                <i id="btn-spin" class="fa fa-cog" :class="holdStart ? 'fa-spin' : '' "></i>
+            </div>
+        </li>
+    </ul>
+    
 </div>
 </body>
 </html>

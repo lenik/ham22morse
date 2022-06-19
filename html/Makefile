@@ -1,2 +1,2 @@
-include _skel/skel.mk
+include .skel/skel.mk
 

@@ -1,6 +1,6 @@
 // -*- css -*-
 
-#editor {
+.editor-container {
     padding: 1em;
     background: #fff0ff;
     
@@ -9,32 +9,110 @@
     }
 }
 
+.editor-container {
+    overflow: hidden;
+    flex: 1;
+    
+    .editor-toolbar {
+        background: #ffe;
+        opacity: 85%;
+    }
+    
+    textarea {
+        width: 100%;
+        height: 100%;
+    }
+    
+    // fix simplemde style
+    display: flex;
+    flex-direction: column;
+    
+    .CodeMirror {
+        flex: 1;
+    }
+}
+
 .ws {
-    background: #fcfcfc;
-    border-bottom: dotted 1px gray;
+    display: inline-block;
+    width: 1.5em;
+    height: 0.5em;
+    margin-left: -.3em;
+    background: #dff;
+    border-bottom: solid 2px #8cf;
+    
+    &.on {
+        visibility: visible;
+    }
+    &.off {
+        visibility: hidden;
+    }
+}
+
+.CodeMirror {
+    box-shadow: none !important;
+    border: solid 1px gray;
+
+    font-family: monospace !important;
+    font-size: 85% !important;
+}
+
+.CodeMirror, .CodeMirror-scroll {
+    min-height: 2em !important;
+}
+
+.CodeMirror:not(.CodeMirror-focused) {
+    .CodeMirror-cursors {
+        visibility: visible !important;
+        .CodeMirror-cursor {
+            border-left-width: 2px;
+            border-left-color: #f9f;
+        }
+    }
+}
+
+#inputbar, #helpdoc {
+    user-select: none;
+    border-top: solid 2px #888;
+    background: #eef8ff;
+    cursor: default;
+    
+    &:focus {
+        outline: none;
+    }
+}
+
+#helpdoc {
+    padding: 1em;
+    font-size: 80%;
+    p {
+        margin: .5em;
+    }
 }
 
 #inputbar {
-    border-top: solid 2px #888;
-    background: #eef8ff;
-}
-
-#event {
-    border-right: solid 1px #888;
-    padding: .5em 1em;
-    min-width: 10em;
-    align-items: center;
-    
+    font-size: 80%;
     .group {
         margin-left: 1em;
-        font-size: 75%;
+        &:last-child {
+            margin-right: 1em;
+        }
         >* {
             min-height: 1em;
         }
     }
+
+    > * {
+        border-right: solid 1px #888;
+        align-items: center;
+    }
+}
+
+#event {
+    padding: .5em 1em;
+    min-width: 10em;
     
     #code {
-        border: solid 4px #ccc;
+        border: solid 4px #ded;
         border-radius: 1em;
         background: #ffffaa;
         margin: auto;
@@ -77,6 +155,36 @@
     }
 }
 
+#config {
+    .rs-tooltip {
+        font-size: 60%;
+        top: 75%;
+    }
+    .rs-handle  {
+        background-color: transparent;
+        border: solid 4px transparent;
+        border-right-color: black;
+        margin: -3px 0px 0px 5px !important;
+        border-width: 3px 35px 3px 2px;
+        box-shadow: none;
+    }
+    .rs-handle:before  {
+        display: block;
+        content: " ";
+        position: absolute;
+        height: 12px;
+        width: 12px;
+        background: black;
+        right: -6px;
+        bottom: -6px;
+        border-radius: 100px;
+    }
+}
+
+.tail {
+    color: #000;
+}
+
 #keys {
     align-items: center;
     
@@ -94,7 +202,7 @@
             max-height: 1em;
         }
         .keyName {
-            font-size: 70%;
+            font-size: 90%;
             opacity: 0.7;
         }
     }
@@ -125,4 +233,73 @@
         }
     }
     
+}
+
+.kb {
+    font-size: 60%;
+    vertical-align: middle;
+    padding: .3em .8em;
+}
+
+.kb {
+    border-style: outset;
+    border-width: 3px;
+    border-color: #ddd;
+    border-radius: .5em;
+    background: #bbb;
+    color: #444;
+}
+
+.kb-double {
+    border-style: double;
+    border-width: 5px;
+    border-color: #888;
+    border-radius: .3em;
+    background: #f7f7f7;
+}
+
+#tools {
+    position: fixed;
+    z-index: 100;
+    right: 1em;
+    bottom: 1em;
+    user-select: none;
+    >* {
+        vertical-align: bottom;
+    }
+}
+
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10em;
+    background: #fff;
+    border-color: #888;
+    
+    &.off {
+        opacity: 20%;
+    }
+    
+    &.large {
+        background: #cef;
+        border-style: double;
+        border-width: 6px;
+        border-color: #777;
+        
+        padding: 1em;
+        height: 2em;
+        width: 2em;
+        
+        .fa {
+            font-size: 2em;
+        }
+    }
+    
+    &.hold {
+        background: #ffc;
+        .fa {
+            color: #a33;
+        }
+    }
 }
