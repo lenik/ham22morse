@@ -1,9 +1,51 @@
-const debug = false;
 const checkInterval = 10;
 
 var down = false;
 var holdHandler;
 var idleHandler;
+
+const cheatLists = [
+    { name: 'a-m', list: [
+            { name: 'A', code: '.-' },
+            { name: 'B', code: '-...' },
+            { name: 'C', code: '-.-.' },
+            { name: 'D', code: '-..' },
+            { name: 'E', code: '.' },
+            { name: 'F', code: '..-.' },
+            { name: 'G', code: '--.' },
+            { name: 'H', code: '....' },
+            { name: 'I', code: '..' },
+            { name: 'J', code: '.---' },
+            { name: 'K', code: '-.-' },
+            { name: 'L', code: '.-..' },
+            { name: 'M', code: '--' },
+    ]}, { name: 'n-z', list: [
+            { name: 'N', code: '-.' },
+            { name: 'O', code: '---' },
+            { name: 'P', code: '.--.' },
+            { name: 'Q', code: '--.-' },
+            { name: 'R', code: '.-.' },
+            { name: 'S', code: '...' },
+            { name: 'T', code: '-' },
+            { name: 'U', code: '..-' },
+            { name: 'V', code: '...-' },
+            { name: 'W', code: '.--' },
+            { name: 'X', code: '-..-' },
+            { name: 'Y', code: '-.--' },
+            { name: 'Z', code: '--..' },
+    ]}, { name: 'digit', list: [
+            { name: '1', code: '.----' },
+            { name: '2', code: '..---' },
+            { name: '3', code: '...--' },
+            { name: '4', code: '....-' },
+            { name: '5', code: '.....' },
+            { name: '6', code: '-....' },
+            { name: '7', code: '--...' },
+            { name: '8', code: '---..' },
+            { name: '9', code: '----.' },
+            { name: '0', code: '-----' },
+    ]}
+];
 
 function decode(bin) {
     switch (bin) {
@@ -74,14 +116,24 @@ $(document).ready(function() {
     appModel = {
         version: '1.0',
         text: 'hello, world!',
+        debug: false,
         editMode: false,
         
         showKey: false,
         showHelp: false,
+        cheatLists: cheatLists,
         
-        dashMin: 200,
-        letterMin: 200,
-        wordMin: 700,
+        speed: {
+            dash: {
+                min: 50, max: 1000, step: 50, value: 150
+            },
+            letter: {
+                min: 100, max: 1500, step: 50, value: 200
+            },
+            word: {
+                min: 500, max: 2500, step: 100, value: 700
+            }
+        },
 
         keys: [],
         lastEvent: {
@@ -118,8 +170,8 @@ $(document).ready(function() {
             },
             
             idleType: function() {
-                if (app.idleDuration < app.letterMin) return 'none';
-                if (app.idleDuration < app.wordMin) return 'letter';
+                if (app.idleDuration < app.speed.letter.value) return 'none';
+                if (app.idleDuration < app.speed.word.value) return 'letter';
                 return 'word';
             }
         },

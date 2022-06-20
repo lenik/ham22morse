@@ -10,6 +10,7 @@
 }
 
 .editor-container {
+    position: relative;
     overflow: hidden;
     flex: 1;
     
@@ -72,9 +73,9 @@
 
 #inputbar, #helpdoc {
     user-select: none;
+    cursor: default;
     border-top: solid 2px #888;
     background: #eef8ff;
-    cursor: default;
     
     &:focus {
         outline: none;
@@ -86,6 +87,41 @@
     font-size: 80%;
     p {
         margin: .5em;
+    }
+}
+
+#cheatsheet {
+    user-select: none;
+    cursor: default;
+    position: absolute;
+    z-index: 10;
+    left: 1em;
+    bottom: 1em;
+    padding: 0.5em 1em;
+    background: #ffe;
+    border-radius: .5em;
+    border: dotted 3px #8b3;
+    box-shadow: #888 .4em .4em 1em 0px;
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 0.5em;
+        font-size: 80%;
+        .char {
+            color: #346;
+            font-family: monospace;
+        }
+        i.fa {
+            margin: 0 .3em;
+            font-size: 40%;
+            vertical-align: middle;
+            &.fa-circle {
+                color: #8aa;
+            }
+            &.fa-minus {
+                color: #a96;
+            }
+        }
     }
 }
 

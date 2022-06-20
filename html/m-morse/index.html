@@ -20,6 +20,8 @@
         <script type="text/javascript" src="index-model.js"></script>
         <script type="text/javascript" src="../.skel/skel.js"></script>
         <script type="text/javascript" src="../site.js"></script>
+        <script type="text/javascript" src="editor.js"></script>
+        <script type="text/javascript" src="inputbar.js"></script>
         <script type="text/javascript" src="index.js"></script>
     </head>
 <body class="full-size">
@@ -27,6 +29,15 @@
     
     <div class="editor-container" class="fill" :class="editMode ? 'active' : '' ">
         <textarea id="editor"></textarea>
+        
+        <div id="cheatsheet" class="flex-row" v-if="showHelp">
+            <ul :data-id="list.name" v-for="list in cheatLists">
+                <li v-for="it in list.list">
+                    <b class="char">{{it.name}}</b>
+                    <i class="fa" :class="keyGraph(k)" v-for="k in it.code.split('')"></i>
+                </li>
+            </ul>
+        </div>
     </div>
     
     <div id="helpdoc" class="flex-row" v-if="editMode">
@@ -37,9 +48,6 @@
             键退出文字编辑模式，再按圆点键
                 <b class="kb">.</b>
             键发送电报码。
-        </p>
-        <p class="cheatsheet">
-            ...
         </p>
     </div>
     
@@ -69,9 +77,9 @@
         
         <div id="config" class="flex-row" v-if="!showKey">
             <div class="group">
-                <round-slider v-model="dashMin"
+                <round-slider v-model="speed.dash.value"
                     slider-type="min-range"
-                    min="100" max="1000" step="10"
+                    :min="speed.dash.min" :max="speed.dash.max" :step="speed.dash.step"
                     radius="32" width="6"
                     handle-size="0" handle-shape="square"
                     circle-shape="full"
@@ -81,9 +89,9 @@
                  ></round-slider>
             </div>
             <div class="group">
-                <round-slider v-model="letterMin"
+                <round-slider v-model="speed.letter.value"
                     slider-type="min-range"
-                    min="200" max="2000" step="10"
+                    :min="speed.letter.min" :max="speed.letter.max" :step="speed.letter.step"
                     radius="32" width="6"
                     handle-size="0" handle-shape="square"
                     circle-shape="full"
@@ -93,9 +101,9 @@
                  ></round-slider>
             </div>
             <div class="group">
-                <round-slider v-model="wordMin"
+                <round-slider v-model="speed.word.value"
                     slider-type="min-range"
-                    min="300" max="3000" step="10"
+                    :min="speed.word.min" :max="speed.word.max" :step="speed.word.step"
                     radius="32" width="6"
                     handle-size="0" handle-shape="square"
                     circle-shape="full"
@@ -131,13 +139,15 @@
     
     <ul id="tools" class="inline-block">
         <li>
-            <div class="btn" :class="showKey ? 'on' : 'off'" @click="showKey = !showKey">
-                <i class="fa fa-keyboard-o"></i>
+            <div class="btn" :class="showHelp ? 'on' : 'off'" @click="showHelp = !showHelp"
+                    title="show help/cheatsheet page (F1)">
+                <i class="fa fa-question"></i>
             </div>
         </li>
         <li>
-            <div class="btn" :class="showHelp ? 'on' : 'off'" @click="showHelp = !showHelp">
-                <i class="fa fa-question"></i>
+            <div class="btn" :class="showKey ? 'on' : 'off'" @click="showKey = !showKey"
+                    title="monitor key event (F2)">
+                <i class="fa fa-keyboard-o"></i>
             </div>
         </li>
         <li>
