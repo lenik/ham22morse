@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>ProjectTitle</title>
+        <title>HAM test booklet for printing</title>
 
         <link rel="stylesheet" type="text/css" href="../node_modules/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="../.skel/skel.css">
@@ -9,21 +9,22 @@
         <link rel="stylesheet" type="text/css" href="index.css">
 
         <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
-        <script type="text/javascript" src="../node_modules/tweenjs/lib/tweenjs.min.js"></script>
         <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
-
-        <script type="text/javascript" src="../libjs/lenik/dev-local.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/http-request.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/dom-util.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/ajax-form.js"></script>
-        <script type="text/javascript" src="../libjs/lenik/inlineEdit.js"></script>
-
+        
         <script type="text/javascript" src="../.skel/async.js"></script>
         <script type="text/javascript" src="../site-model.js"></script>
+        
+        <script id="data" type="application/json" src="data/lib2022.json"></script>
         <script type="text/javascript" src="index-model.js"></script>
         <script type="text/javascript" src="../.skel/skel.js"></script>
         <script type="text/javascript" src="../.skel/site-supp.js"></script>
         <script type="text/javascript" src="../site.js"></script>
+        <script type="text/javascript" src="index.js"></script>
+        
+        <!-- paged.js must be included at last, because it will modify the DOM. -->
+        <script type="text/javascript" src="../node_modules/pagedjs/dist/paged.js"></script>
+        <script type="text/javascript" src="../node_modules/pagedjs/dist/paged.polyfill.js"></script>
+
     </head>
 <body class="flex-column full-size">
 <div id="body">

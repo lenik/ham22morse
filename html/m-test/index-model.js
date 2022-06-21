@@ -1,27 +1,31 @@
+
+function convert(data) {
+    var n = data.length;
+    var dst = [];
+    for (var i = 0; i < n; i++) {
+        var row = data[i];
+        var m = row.ans.length;
+        var answers = [];
+        for (var j = 0; j < m; j++) {
+            answers[j] = {
+                text: row.ans[j],
+                index: j,
+                random: Math.random() * 100000,
+            };
+        }
+        answers.sort( (a, b) => a.random - b.random );
+        dst.push({
+            q: row.q,
+            answers: answers
+        });
+    }
+    return dst;
+}
+
 $(document).ready(function() {
 
     appModel = {
-        version: '1.0',
-        view: 'about',
-        views: {
-            about: {
-                label: "About",
-                iconfa: "info"
-            },
-            options: {
-                label: "Options",
-                iconfa: "cog"
-            }
-        },
-        stat: {
-            views: 0,
-            stars: 0,
-            upvotes: 0,
-            downvotes: 0
-        },
-        
         records: [],
-        
         init: function(s) {
         }
     };
@@ -39,24 +43,17 @@ $(document).ready(function() {
         }
     });
     
-    $.ajax("d2.json").done(function(data) {
-        var n = data.length;
-        for (var i = 0; i < n; i++) {
-            var record = data[i];
-            var m = record.ans.length;
-            record.answers = [];
-            for (var j = 0; j < m; j++) {
-                record.answers[j] = {
-                    text: record.ans[j],
-                    index: j,
-                    random: Math.random() * 100000,
-                };
-            }
-            record.answers.sort( (a, b) => a.random - b.random );
-        }
-        app.records = data;
-    }).fail(function (xhr, status, err) {
-        showError("Failed to query index data: " + err);
-    });
-
+    async function loadData() {
+        const res = await fetch('data/lib2022.json');
+        const data = await res.json();
+        // const src = document.getElementById("data").textContent;
+        // const data = JSON.parse(src);
+        app.records = convert(data);
+        
+        var config = window.PagedConfig;
+        var previewer = new Paged.Previewer;
+        previewer.preview(config.content, config.stylesheets, config.renderTo);
+    }
+    loadData();
+    
 });

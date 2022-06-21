@@ -5,6 +5,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
+    "pagedjs": "^0.3.5",
     "preloadjs": "^1.0.1",
     "requirejs": "^2.3.5",
     "round-slider": "^1.6.1",
