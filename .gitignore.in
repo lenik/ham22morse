@@ -1,0 +1,146 @@
+# -*- sh -*-
+**/debian/*.EX                          # cooldeb excluded file
+**/debian/*.ex                          # cooldeb excluded file
+**/debian/*/                            # cooldeb
+**/debian/changelog                     # cooldeb
+**/debian/compat                        # cooldeb
+**/debian/copyright                     # cooldeb
+**/debian/files                         # cooldeb
+**/debian/rules                         # cooldeb
+**/m4/libtool.m4                        # libtool
+**/m4/lt*.m4                            # libtool
+**/po/*.gmo                             # gettextize
+**/po/*.header                          # gettextize
+**/po/*.sed                             # gettextize
+**/po/*.sin                             # gettextize
+**/po/*.template                        # gettextize
+*.1                                     # help2man
+*.6                                     # help2man
+*.8                                     # help2man
+*.Po
+*.ap_                                   # android
+*.apk                                   # android
+*.aux                                   # cooltex
+*.bak                                   # Backup file
+*.bbl                                   # cooltex
+*.blg                                   # cooltex
+*.build                                 # cooldeb
+*.bz2                                   # source tarballs
+*.cb                                    # cooltex
+*.changes                               # cooldeb
+*.class
+*.css                                   # scss
+*.css.map                               # scss
+*.deb                                   # cooldeb
+*.debhelper                             # cooldeb
+*.dex                                   # android
+*.dsc                                   # cooldeb
+*.dvi                                   # cooltex
+*.ff                                    # mda-xjdoc
+*.glo                                   # cooltex
+*.gz                                    # source tarballs
+*.idx                                   # cooltex
+*.ilg                                   # cooltex
+*.iml                                   # Idea
+*.ind                                   # cooltex
+*.ipr                                   # Idea
+*.iws                                   # Idea
+*.la                                    # libtool library info
+*.le
+*.lo                                    # libtool obj file
+*.lock
+*.lof                                   # cooltex
+*.log
+*.log.[0-9]*
+*.lot                                   # cooltex
+*.o                                     # obj file
+*.orig                                  # merge conflicts
+*.out
+*.pdf                                   # cooltex
+*.pro.user*                             # QtCreator
+*.qm                                    # QtCreator
+*.releaseBackup                         # Maven
+*.substvars                             # cooldeb
+*.spec                                  # deb2spec
+*.swp                                   # Vim swap file
+*.tmp
+*.toc                                   # cooltex Table Of Contents
+*.upload                                # cooldeb
+*.versionsBackup                        # Maven
+*.xdv                                   # cooltex
+*.xz                                    # source tarballs
+*.zip                                   # source tarballs
+*~                                      # Backup file
+,*                                      # hrefs
+.#*                                     # Emacs bak file
+.*.bin
+.attach*                                # IntelliJ
+.classpath                              # Eclipse project classpath
+.classpath.*                            # mjpl
+.deps                                   # cooldeb
+.deps.lst                               # m2proj
+.dirstamp
+.DS_Store                               # OSX file
+.idea                                   # Idea project file
+.libs/                                  # libtool tmp build dir
+.m2*                                    # Maven
+.project                                # Eclipse project file
+.sass-cache/                            # scss
+.settings                               # Eclipse project settings
+/.pomdirs                               # coolmaven
+/extern/
+ABOUT-NLS                               # gettextize
+COPYING                                 # cooldeb
+ChangeLog                               # coolauto
+FILES                                   # coolmake
+INSTALL                                 # cooldeb
+#Makefile
+Makefile.in                             # Makefile.am
+POTFILES                                # gettextize
+RELEASE-NOTES                           # coolmaven
+Rules-quot                              # gettextize
+aclocal.m4
+all.sql                                 # catme
+all-data.sql                            # catme
+autom4te.cache/
+build/                                  # Android
+build-*/                                # QtCreator
+compile                                 # AC_PROG_CC
+config.guess
+config.h
+config.h.in
+config.log
+config.rpath                            # gettextize
+config.status
+config.sub
+configure                               # configure.ac
+depcomp
+install-sh                              # autoreconf -i
+itree.tex                               # makelook
+lib/
+libauto                                 # coolauto
+libtool                                 # libtool
+ltmain.sh                               # libtool
+missing                                 # autoreconf -i
+node_modules/                           # Node.js
+nohup.out                               # nohup CMDLINE...
+order.lst                               # m2proj
+output.json                             # android gradle
+postinst                                # postinst.in
+prerm                                   # prerm.in
+rpmbuild/                               # coolrpm
+srcsheet.txt                            # coolauto
+stamp-h1
+stamp-po                                # gettextize
+stats/                                  # gitstats
+target/                                 # Maven build target dir
+
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+

@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">莫斯电报</string>
+
+    <string name="toggle_button">全屏</string>
+    <string name="check_button">检查新版本</string>
+    <string name="quit_button">退出</string>
+    <string name="dummy_content">欢迎使用莫斯电报</string>
+</resources>

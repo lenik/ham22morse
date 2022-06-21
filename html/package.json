@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "bootstrap": "^5.1.3",
     "codemirror": "^5.65.2",
     "codemirror-minified": "^5.65.2",
     "font-awesome": "^4.7.0",
