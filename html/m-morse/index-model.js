@@ -117,6 +117,7 @@ $(document).ready(function() {
         version: '1.0',
         text: 'hello, world!',
         debug: false,
+        mobile: true,
         editMode: false,
         
         showKey: false,
@@ -135,7 +136,7 @@ $(document).ready(function() {
             }
         },
 
-        keys: [],
+        keys: "".split(''),
         lastEvent: {
             code: 'N/A'
         },

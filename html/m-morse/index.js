@@ -36,4 +36,6 @@ $(document).ready(function() {
 
     setTimeout(leaveEditor, 100);
 
+    // $("*").touchstart(function(e) { e.preventDefault(); });
+    
 });

@@ -7,6 +7,11 @@
         <link rel="stylesheet" type="text/css" href="../.skel/skel.css">
         <link rel="stylesheet" type="text/css" href="../site.css">
         <link rel="stylesheet" type="text/css" href="index.css">
+        
+        <!--
+        <link rel="stylesheet" type="text/css" href="../node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+-->
 
         <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
         <script type="text/javascript" src="../node_modules/vue/dist/vue.js"></script>
@@ -25,7 +30,7 @@
         <script type="text/javascript" src="index.js"></script>
     </head>
 <body class="full-size">
-<div id="body" class="flex-column full-size">
+<div id="body" class="flex-column full-size" :class="mobile ? 'mobile' : 'desktop'">
     
     <div class="editor-container" class="fill" :class="editMode ? 'active' : '' ">
         <textarea id="editor"></textarea>
@@ -38,6 +43,30 @@
                 </li>
             </ul>
         </div>
+        
+        <ul id="tools" class="inline-block">
+            <li>
+                <div class="mbutton" :class="showHelp ? 'on' : 'off'" @click="showHelp = !showHelp"
+                        title="show help/cheatsheet page (F1)">
+                    <i class="fa fa-question"></i>
+                </div>
+            </li>
+            <li>
+                <div class="mbutton" :class="showKey ? 'on' : 'off'" @click="showKey = !showKey"
+                        title="monitor key event (F2)">
+                    <i class="fa fa-keyboard-o"></i>
+                </div>
+            </li>
+            <li>
+                <div class="mbutton large" :class="holdStart ? 'hold' : '' "
+                        onpointerdown="tapDown()"
+                        onpointerup="tapUp()"
+                        >
+                    <i id="mbutton-spin" class="fa fa-cog" :class="holdStart ? 'fa-spin' : '' "></i>
+                </div>
+            </li>
+        </ul>
+        
     </div>
     
     <div id="helpdoc" class="flex-row" v-if="editMode">
@@ -51,67 +80,72 @@
         </p>
     </div>
     
-    <div id="inputbar" class="flex-row" v-if="!editMode">
-        <div id="event" class="flex-row" v-if="showKey">
-            <div class="group">
-                <div id="code">{{ lastEvent.code }}</div>
-                <div id="duration"> {{ holdDuration == null ? "-" : holdDuration }}</div>
-            </div>
-            <div class="group">
-                <div id="key">{{ lastEvent.key }}</div>
-                <div id="keyCode">{{ lastEvent.keyCode }}</div>
-                <div class="head">key</div>
-            </div>
-            <div class="group">
-                <div id="char">'{{ lastEvent.char }}'</div>
-                <div id="charCode">{{ lastEvent.charCode }}</div>
-                <div class="head">char</div>
-            </div>
-            <ul class="group inline-block">
-                <li id="shift" class="shift" :class='sayOn(lastEvent.shiftKey)'>{{ say(lastEvent.shiftKey, "shift") }}</li>
-                <li id="ctrl" class="ctrl" :class='sayOn(lastEvent.ctrlKey)'>{{ say(lastEvent.ctrlKey, "ctrl") }}</li>
-                <li id="alt" class="alt" :class='sayOn(lastEvent.altKey)'>{{ say(lastEvent.altKey, "alt") }}</li>
-                <li id="meta" class="meta" :class='sayOn(lastEvent.metaKay)'>{{ say(lastEvent.metaKey, "meta") }}</li>
-            </ul>
-        </div>
+    <div id="inputbar" :class="mobile ? '' : 'flex-row'" v-if="!editMode">
         
-        <div id="config" class="flex-row" v-if="!showKey">
-            <div class="group">
-                <round-slider v-model="speed.dash.value"
-                    slider-type="min-range"
-                    :min="speed.dash.min" :max="speed.dash.max" :step="speed.dash.step"
-                    radius="32" width="6"
-                    handle-size="0" handle-shape="square"
-                    circle-shape="full"
-                    start-angle="330" end-angle="+240"
-                    editable-tooltip="false"
-                    :tooltip-format="tailed('dash')"
-                 ></round-slider>
+        <div class="dual flex-row">
+        
+            <div id="config" class="flex-row" v-if="mobile || !showKey">
+                <div class="group">
+                    <round-slider v-model="speed.dash.value"
+                        slider-type="min-range"
+                        :min="speed.dash.min" :max="speed.dash.max" :step="speed.dash.step"
+                        radius="32" width="6"
+                        handle-size="0" handle-shape="square"
+                        circle-shape="full"
+                        start-angle="330" end-angle="+240"
+                        editable-tooltip="false"
+                        :tooltip-format="tailed('dash')"
+                     ></round-slider>
+                </div>
+                <div class="group">
+                    <round-slider v-model="speed.letter.value"
+                        slider-type="min-range"
+                        :min="speed.letter.min" :max="speed.letter.max" :step="speed.letter.step"
+                        radius="32" width="6"
+                        handle-size="0" handle-shape="square"
+                        circle-shape="full"
+                        start-angle="330" end-angle="+240"
+                        editable-tooltip="false"
+                        :tooltip-format="tailed('letter')"
+                     ></round-slider>
+                </div>
+                <div class="group">
+                    <round-slider v-model="speed.word.value"
+                        slider-type="min-range"
+                        :min="speed.word.min" :max="speed.word.max" :step="speed.word.step"
+                        radius="32" width="6"
+                        handle-size="0" handle-shape="square"
+                        circle-shape="full"
+                        start-angle="330" end-angle="+240"
+                        editable-tooltip="false"
+                        :tooltip-format="tailed('word')"
+                     ></round-slider>
+                </div>
             </div>
-            <div class="group">
-                <round-slider v-model="speed.letter.value"
-                    slider-type="min-range"
-                    :min="speed.letter.min" :max="speed.letter.max" :step="speed.letter.step"
-                    radius="32" width="6"
-                    handle-size="0" handle-shape="square"
-                    circle-shape="full"
-                    start-angle="330" end-angle="+240"
-                    editable-tooltip="false"
-                    :tooltip-format="tailed('letter')"
-                 ></round-slider>
+            
+            <div id="event" class="flex-row" v-if="mobile || showKey">
+                <div class="group">
+                    <div id="code">{{ lastEvent.code }}</div>
+                    <div id="duration"> {{ holdDuration == null ? "-" : holdDuration }}</div>
+                </div>
+                <div class="group">
+                    <div id="key">{{ lastEvent.key }}</div>
+                    <div id="keyCode">{{ lastEvent.keyCode }}</div>
+                    <div class="head">key</div>
+                </div>
+                <div class="group">
+                    <div id="char">'{{ lastEvent.char }}'</div>
+                    <div id="charCode">{{ lastEvent.charCode }}</div>
+                    <div class="head">char</div>
+                </div>
+                <ul class="group inline-block">
+                    <li id="shift" class="shift" :class='sayOn(lastEvent.shiftKey)'>{{ say(lastEvent.shiftKey, "shift") }}</li>
+                    <li id="ctrl" class="ctrl" :class='sayOn(lastEvent.ctrlKey)'>{{ say(lastEvent.ctrlKey, "ctrl") }}</li>
+                    <li id="alt" class="alt" :class='sayOn(lastEvent.altKey)'>{{ say(lastEvent.altKey, "alt") }}</li>
+                    <li id="meta" class="meta" :class='sayOn(lastEvent.metaKay)'>{{ say(lastEvent.metaKey, "meta") }}</li>
+                </ul>
             </div>
-            <div class="group">
-                <round-slider v-model="speed.word.value"
-                    slider-type="min-range"
-                    :min="speed.word.min" :max="speed.word.max" :step="speed.word.step"
-                    radius="32" width="6"
-                    handle-size="0" handle-shape="square"
-                    circle-shape="full"
-                    start-angle="330" end-angle="+240"
-                    editable-tooltip="false"
-                    :tooltip-format="tailed('word')"
-                 ></round-slider>
-            </div>
+
         </div>
         
         <ul id="keys" class="flex-row fill inline-block">
@@ -136,29 +170,6 @@
         </ul>
         
     </div>
-    
-    <ul id="tools" class="inline-block">
-        <li>
-            <div class="btn" :class="showHelp ? 'on' : 'off'" @click="showHelp = !showHelp"
-                    title="show help/cheatsheet page (F1)">
-                <i class="fa fa-question"></i>
-            </div>
-        </li>
-        <li>
-            <div class="btn" :class="showKey ? 'on' : 'off'" @click="showKey = !showKey"
-                    title="monitor key event (F2)">
-                <i class="fa fa-keyboard-o"></i>
-            </div>
-        </li>
-        <li>
-            <div class="btn large" :class="holdStart ? 'hold' : '' "
-                    onmousedown="tapDown()"
-                    onmouseup="tapUp()"
-                    >
-                <i id="btn-spin" class="fa fa-cog" :class="holdStart ? 'fa-spin' : '' "></i>
-            </div>
-        </li>
-    </ul>
     
 </div>
 </body>

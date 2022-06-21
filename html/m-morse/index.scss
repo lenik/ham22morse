@@ -1,18 +1,19 @@
 // -*- css -*-
 
-.editor-container {
-    padding: 1em;
-    background: #fff0ff;
-    
-    &:after {
-        content: '\00a0';
-    }
+body {
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .editor-container {
-    position: relative;
-    overflow: hidden;
+    background: #fff0ff;
+    padding: 1em;
+}
+
+.editor-container {
     flex: 1;
+    // overflow: hidden;
+    position: relative;
     
     .editor-toolbar {
         background: #ffe;
@@ -20,8 +21,8 @@
     }
     
     textarea {
-        width: 100%;
         height: 100%;
+        width: 100%;
     }
     
     // fix simplemde style
@@ -34,12 +35,12 @@
 }
 
 .ws {
-    display: inline-block;
-    width: 1.5em;
-    height: 0.5em;
-    margin-left: -.3em;
     background: #dff;
     border-bottom: solid 2px #8cf;
+    display: inline-block;
+    height: 0.5em;
+    margin-left: -.3em;
+    width: 1.5em;
     
     &.on {
         visibility: visible;
@@ -50,8 +51,8 @@
 }
 
 .CodeMirror {
-    box-shadow: none !important;
     border: solid 1px gray;
+    box-shadow: none !important;
 
     font-family: monospace !important;
     font-size: 85% !important;
@@ -65,21 +66,25 @@
     .CodeMirror-cursors {
         visibility: visible !important;
         .CodeMirror-cursor {
-            border-left-width: 2px;
             border-left-color: #f9f;
+            border-left-width: 2px;
         }
     }
 }
 
 #inputbar, #helpdoc {
-    user-select: none;
-    cursor: default;
-    border-top: solid 2px #888;
     background: #eef8ff;
+    border-top: solid 1px #888;
+    cursor: default;
+    user-select: none;
     
     &:focus {
         outline: none;
     }
+}
+
+.mobile .dual {
+    background: #fff;
 }
 
 #helpdoc {
@@ -91,29 +96,38 @@
 }
 
 #cheatsheet {
-    user-select: none;
-    cursor: default;
-    position: absolute;
-    z-index: 10;
-    left: 1em;
-    bottom: 1em;
-    padding: 0.5em 1em;
     background: #ffe;
-    border-radius: .5em;
     border: dotted 3px #8b3;
+    border-radius: .5em;
+    bottom: 1em;
     box-shadow: #888 .4em .4em 1em 0px;
+    cursor: default;
+    left: 1em;
+    padding: 0.5em 1em;
+    position: absolute;
+    user-select: none;
+    z-index: 10;
+
     ul {
-        list-style: none;
-        padding: 0;
-        margin: 0 0.5em;
         font-size: 80%;
+        list-style: none;
+        margin: 0 0.5em;
+        padding: 0;
+
+        li {
+            padding: 0;
+            margin: 0;
+            line-height: initial;
+        }
+        
         .char {
             color: #346;
             font-family: monospace;
         }
+
         i.fa {
-            margin: 0 .3em;
             font-size: 40%;
+            margin: 0 .3em;
             vertical-align: middle;
             &.fa-circle {
                 color: #8aa;
@@ -127,6 +141,8 @@
 
 #inputbar {
     font-size: 80%;
+    // flex-flow: row wrap;
+    
     .group {
         margin-left: 1em;
         &:last-child {
@@ -137,7 +153,7 @@
         }
     }
 
-    > * {
+    #config, #event {
         border-right: solid 1px #888;
         align-items: center;
     }
@@ -147,15 +163,19 @@
     padding: .5em 1em;
     min-width: 10em;
     
+    .group {
+        font-size: 80%;
+    }
+    
     #code {
-        border: solid 4px #ded;
-        border-radius: 1em;
         background: #ffffaa;
-        margin: auto;
-        padding: 0.2em 0.5em;
-        min-width: 4em;
-        text-align: center;
+        border-radius: 1em;
+        border: solid 4px #ded;
         font-size: 120%;
+        margin: auto;
+        min-width: 4em;
+        padding: 0.2em 0.5em;
+        text-align: center;
     }
     
     #duration {
@@ -192,28 +212,31 @@
 }
 
 #config {
+    padding: .5em 1em;
+    justify-content: space-evenly;
+    
     .rs-tooltip {
         font-size: 60%;
         top: 75%;
     }
     .rs-handle  {
         background-color: transparent;
-        border: solid 4px transparent;
         border-right-color: black;
-        margin: -3px 0px 0px 5px !important;
+        border: solid 4px transparent;
         border-width: 3px 35px 3px 2px;
         box-shadow: none;
+        margin: -3px 0px 0px 5px !important;
     }
     .rs-handle:before  {
-        display: block;
-        content: " ";
-        position: absolute;
-        height: 12px;
-        width: 12px;
         background: black;
-        right: -6px;
-        bottom: -6px;
         border-radius: 100px;
+        bottom: -6px;
+        content: " ";
+        display: block;
+        height: 12px;
+        position: absolute;
+        right: -6px;
+        width: 12px;
     }
 }
 
@@ -223,19 +246,20 @@
 
 #keys {
     align-items: center;
+    height: 5em;
     
     li {
-        margin-left: 1em;
         background: #def;
-        padding: 0.2em 0.5em;
-        border: solid 2px #7bd;
         border-radius: .5em;
+        border: solid 2px #7bd;
         color: #358;
+        margin-left: 1em;
+        padding: 0.2em 0.5em;
         text-align: center;
         
         .key {
-            width: 1.5em;
             max-height: 1em;
+            width: 1.5em;
         }
         .keyName {
             font-size: 90%;
@@ -243,12 +267,12 @@
         }
     }
     .dash {
-        font-style: italic;
         background: #eff;
+        font-style: italic;
     }
     .hold {
-        border-style: dashed;
         background: #eee;
+        border-style: dashed;
     }
     .hold-1 {
         background: #fdf;
@@ -273,45 +297,49 @@
 
 .kb {
     font-size: 60%;
-    vertical-align: middle;
     padding: .3em .8em;
+    vertical-align: middle;
 }
 
 .kb {
-    border-style: outset;
-    border-width: 3px;
+    background: #bbb;
     border-color: #ddd;
     border-radius: .5em;
-    background: #bbb;
+    border-style: outset;
+    border-width: 3px;
     color: #444;
 }
 
 .kb-double {
-    border-style: double;
-    border-width: 5px;
+    background: #f7f7f7;
     border-color: #888;
     border-radius: .3em;
-    background: #f7f7f7;
+    border-style: double;
+    border-width: 5px;
 }
 
 #tools {
-    position: fixed;
-    z-index: 100;
+    bottom: -2.5em;
+    position: absolute;
     right: 1em;
-    bottom: 1em;
     user-select: none;
+    z-index: 100;
     >* {
         vertical-align: bottom;
     }
 }
 
-.btn {
+.mbutton {
+    align-items: center;
+    background: #fff;
+    border: solid 1px #888;
+    border-radius: 10em;
+    box-sizing: content-box;
+    cursor: pointer;
     display: flex;
     justify-content: center;
-    align-items: center;
-    border-radius: 10em;
-    background: #fff;
-    border-color: #888;
+    width: 1.5em;
+    height: 1.5em;
     
     &.off {
         opacity: 20%;
@@ -319,13 +347,12 @@
     
     &.large {
         background: #cef;
+        border-color: #777;
         border-style: double;
         border-width: 6px;
-        border-color: #777;
-        
         padding: 1em;
-        height: 2em;
         width: 2em;
+        height: 2em;
         
         .fa {
             font-size: 2em;
@@ -337,5 +364,11 @@
         .fa {
             color: #a33;
         }
+    }
+}
+
+.mobile {
+    #keys {
+        border-top: solid 1px #888;
     }
 }

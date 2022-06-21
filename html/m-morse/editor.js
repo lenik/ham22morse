@@ -1,22 +1,4 @@
 var editor;
-var cmOpts = {
-    lineNumbers: true,
-    lint: true,
-    indentWithTabs: false,
-    tabSize: 4,
-    indentUnit: 4,
-    theme: "solarized",
-    foldGutter: true,
-    gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter", "CodeMirror-lint-markers"],
-    extraKeys: {
-        "Ctrl-Q": function(cm){
-            cm.foldCode(cm.getCursor());
-        },
-        "Tab": function (cm) {
-            cm.replaceSelection("    ", "end");
-        }
-    },
-};
 
 function refreshEditors() {
     if (editor != null) {
@@ -59,6 +41,7 @@ $(document).ready(function() {
             blockStyles: {
                 italic: '_'
             },
+            hideIcons: [ 'fullscreen', 'guide' ],
             initialValue: app.text,
         	insertTexts: {
         		horizontalRule: ["", "\n\n-----\n\n"],
