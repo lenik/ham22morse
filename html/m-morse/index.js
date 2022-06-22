@@ -25,7 +25,11 @@ $(document).ready(function() {
             return false;
             
         case 'F2':
-            app.showKey = ! app.showKey;
+            if (app.mobile) {
+                app.showDual = ! app.showDual;
+            } else {
+                app.showKey = ! app.showKey;
+            }
             return false;
             
         case 'F12':

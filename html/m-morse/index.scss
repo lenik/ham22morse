@@ -6,8 +6,8 @@ body {
 }
 
 .editor-container {
-    background: #fff0ff;
     padding: 1em;
+    background: #fff0ff;
 }
 
 .editor-container {
@@ -35,12 +35,13 @@ body {
 }
 
 .ws {
+    display: inline-block;
+    margin-left: -.3em;
+    height: 0.5em;
+    width: 1.5em;
+
     background: #dff;
     border-bottom: solid 2px #8cf;
-    display: inline-block;
-    height: 0.5em;
-    margin-left: -.3em;
-    width: 1.5em;
     
     &.on {
         visibility: visible;
@@ -55,7 +56,7 @@ body {
     box-shadow: none !important;
 
     font-family: monospace !important;
-    font-size: 85% !important;
+    //font-size: 85% !important;
 }
 
 .CodeMirror, .CodeMirror-scroll {
@@ -96,23 +97,27 @@ body {
 }
 
 #cheatsheet {
+    position: absolute;
+    left: 1em;
+    bottom: 1em;
+    z-index: 10;
+    
     background: #ffe;
     border: dotted 3px #8b3;
     border-radius: .5em;
-    bottom: 1em;
     box-shadow: #888 .4em .4em 1em 0px;
     cursor: default;
-    left: 1em;
-    padding: 0.5em 1em;
-    position: absolute;
     user-select: none;
-    z-index: 10;
-
+    
+    .lists {
+        padding: 0.5em 1em;
+    }
+    
     ul {
-        font-size: 80%;
-        list-style: none;
         margin: 0 0.5em;
         padding: 0;
+        font-size: 80%;
+        list-style: none;
 
         li {
             padding: 0;
@@ -126,8 +131,8 @@ body {
         }
 
         i.fa {
-            font-size: 40%;
             margin: 0 .3em;
+            font-size: 40%;
             vertical-align: middle;
             &.fa-circle {
                 color: #8aa;
@@ -137,6 +142,25 @@ body {
             }
         }
     }
+    
+    hr {
+        margin: 0;
+        border: none;
+        border-bottom: solid 1px #8b3;
+    }
+    
+    .credits {
+        padding: .5em 1em;
+        font-size: 80%;
+        text-align: right;
+        .a {
+            color: #a96;
+        }
+        .b {
+            color: #8aa;
+        }
+    }
+    
 }
 
 #inputbar {
@@ -168,13 +192,14 @@ body {
     }
     
     #code {
+        margin: auto;
+        min-width: 4em;
+        padding: 0.2em 0.5em;
+        
         background: #ffffaa;
         border-radius: 1em;
         border: solid 4px #ded;
         font-size: 120%;
-        margin: auto;
-        min-width: 4em;
-        padding: 0.2em 0.5em;
         text-align: center;
     }
     
@@ -191,9 +216,9 @@ body {
         max-width: 5em;
         
         .on {
+            padding: 0.3em;
             border: solid 1px #ccc;
             border-radius: .5em;
-            padding: 0.3em;
             text-align: center;
         }
         .shift {
@@ -220,23 +245,24 @@ body {
         top: 75%;
     }
     .rs-handle  {
-        background-color: transparent;
-        border-right-color: black;
-        border: solid 4px transparent;
-        border-width: 3px 35px 3px 2px;
-        box-shadow: none;
         margin: -3px 0px 0px 5px !important;
+        background-color: transparent;
+        border: solid 3px transparent;
+        border-width: 3px 35px 3px 2px;
+        border-right-color: black;
+        box-shadow: none;
     }
     .rs-handle:before  {
-        background: black;
-        border-radius: 100px;
-        bottom: -6px;
-        content: " ";
         display: block;
-        height: 12px;
         position: absolute;
         right: -6px;
+        bottom: -6px;
         width: 12px;
+        height: 12px;
+        
+        background: black;
+        border-radius: 100px;
+        content: " ";
     }
 }
 
@@ -249,12 +275,13 @@ body {
     height: 5em;
     
     li {
-        background: #def;
-        border-radius: .5em;
-        border: solid 2px #7bd;
-        color: #358;
         margin-left: 1em;
         padding: 0.2em 0.5em;
+        
+        background: #def;
+        border: solid 2px #7bd;
+        border-radius: .5em;
+        color: #358;
         text-align: center;
         
         .key {
@@ -296,8 +323,8 @@ body {
 }
 
 .kb {
-    font-size: 60%;
     padding: .3em .8em;
+    font-size: 60%;
     vertical-align: middle;
 }
 
@@ -319,40 +346,43 @@ body {
 }
 
 #tools {
-    bottom: -2.5em;
     position: absolute;
     right: 1em;
-    user-select: none;
+    bottom: 1em;
     z-index: 100;
+    
+    user-select: none;
     >* {
         vertical-align: bottom;
     }
 }
 
 .mbutton {
+    box-sizing: content-box;
+    display: flex;
+    width: 1.5em;
+    height: 1.5em;
+    
     align-items: center;
     background: #fff;
     border: solid 1px #888;
     border-radius: 10em;
-    box-sizing: content-box;
     cursor: pointer;
-    display: flex;
     justify-content: center;
-    width: 1.5em;
-    height: 1.5em;
     
     &.off {
         opacity: 20%;
     }
     
     &.large {
+        padding: 1em;
+        width: 2em;
+        height: 2em;
+        
         background: #cef;
         border-color: #777;
         border-style: double;
         border-width: 6px;
-        padding: 1em;
-        width: 2em;
-        height: 2em;
         
         .fa {
             font-size: 2em;
@@ -368,6 +398,11 @@ body {
 }
 
 .mobile {
+    
+    .CodeMirror {
+        font-size: 200%;
+    }
+    
     #keys {
         border-top: solid 1px #888;
     }
