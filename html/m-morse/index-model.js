@@ -121,6 +121,9 @@ const cheatLists = [
             { name: 'K', code: '-.-' },
             { name: 'L', code: '.-..' },
             { name: 'M', code: '--' },
+            { name: '', code: '' },
+            { name: 'Eot', code: '...-.-'},
+            { name: 'Roger', code: '...-.'}
     ]}, { name: 'n-z', list: [
             { name: 'N', code: '-.' },
             { name: 'O', code: '---' },
@@ -134,7 +137,7 @@ const cheatLists = [
             { name: 'W', code: '.--' },
             { name: 'X', code: '-..-' },
             { name: 'Y', code: '-.--' },
-            { name: 'Z', code: '--..' },
+            { name: 'Z', code: '--..' }
     ]}, { name: 'digit', list: [
             { name: '1', code: '.----' },
             { name: '2', code: '..---' },
@@ -146,6 +149,25 @@ const cheatLists = [
             { name: '8', code: '---..' },
             { name: '9', code: '----.' },
             { name: '0', code: '-----' },
+            { name: '', code: '' },
+            { name: '+', code: '.-.-.'},
+            { name: '-', code: '-....-'},
+            { name: '/', code: '-..-.'},
+            { name: '=', code: '-...-'},
+    ]}, { name: 'ops', list: [
+            { name: ',', code: '..-..'},
+            { name: '.', code: '.-.-.-'},
+            { name: ';', code: '-.-.-'},
+            { name: ':', code: '---...'},
+            { name: '\'',code: '.----.'},
+            { name: '"', code: '.-..-.'},
+            { name: '?', code: '..--..'},
+            { name: '&', code: '.-...'},
+            { name: '$', code: '...-..-'},
+            { name: '@', code: '.--.-.'},
+            { name: '(', code: '-.--.'},
+            { name: ')', code: '-.--.-'},
+            { name: '!', code: '..--.'},
     ]}
 ];
 
@@ -161,7 +183,7 @@ function decode(bin) {
         case 0b10000: return 'H';
         case 0b100: return 'I';
         case 0b10111: return 'J';
-        case 0b1101: return 'K';
+        case 0b1101: return 'K';    // Over
         case 0b10100: return 'L';
         case 0b111: return 'M';
         case 0b110: return 'N';
@@ -189,8 +211,8 @@ function decode(bin) {
         case 0b111111: return '0';
 
         case 0b101101: return 'Á';
-        case 0b10101: return 'Ä';
-        case 0b100100: return 'É';
+        case 0b10101: return 'Ä'; // SOT
+        //case 0b100100: return 'É';
         case 0b111011: return 'Ñ';
         case 0b11110: return 'Ö';
         case 0b10011: return 'Ü';
@@ -198,17 +220,26 @@ function decode(bin) {
         case 0b100100: return ',';
         case 0b1010101: return '.';
         case 0b1001100: return '?';
-        case 0b110101: return ';';
+        case 0b110101: return ';';  // SOT
         case 0b1111000: return ':';
         case 0b110010: return '/';
         case 0b101010: return '+';
         case 0b1100001: return '-';
         case 0b110001: return '=';
-        case 0b1101101: return '(';
-        case 0b1000101: return '@';
+        case 0b110110: return '(';
+        case 0b1101101: return ')';
+        case 0b1000101: return '\\Eot';
+        case 0b1011010: return '@'; // EOT
+        
+        case 0b101000: return '&'; // wait
+        case 0b10001001: return '$';
         case 0b1010010: return '"';
         case 0b1011110: return '\'';
         case 0b100110: return '!';
+        
+        case 0b100000000: return "\\Err";
+        case 0b100010: return "\\Roger";
+        
     }
     return '(n/a)';
 }
