@@ -1,17 +1,9 @@
 {
   "dependencies": {
     "bootstrap": "^5.1.3",
-    "codemirror": "^5.65.2",
-    "codemirror-minified": "^5.65.2",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
-    "moment": "^2.18.1",
-    "pagedjs": "^0.3.5",
-    "preloadjs": "^1.0.1",
-    "requirejs": "^2.3.5",
-    "round-slider": "^1.6.1",
     "simplemde": "^1.11.2",
-    "tweenjs": "^1.0.2",
     "vue": "^2.5.2",
     "vue-round-slider": "^1.0.1",
     "vue-simplemde": "^2.0.0"
